@@ -1,9 +1,25 @@
-import React, { Component, createContext } from 'react';
+import React, { useEffect, useState, createContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { getPostsBySubreddit } from '../services/redditAPI';
 
 const Context = createContext();
+
+const INITIAL_POSTS_BY_SUBREDDIT = {
+  frontend: {},
+  reactjs: {},
+};
+
+const RedditProvider = ({ children }) => {
+  const [postsBySubreddit, setPostsBySubreddit] = useState(INITIAL_POSTS_BY_SUBREDDIT);
+  const [selectedSubreddit, setSelectedSubreddit] = useState('reactjs');
+  const [shouldRefreshSubreddit, setShouldrefreshSubreddit] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+}
+
+/********************************************************************************************************** */
+
+
 const { Provider, Consumer } = Context;
 
 class RedditProvider extends Component {
@@ -11,10 +27,7 @@ class RedditProvider extends Component {
     super(props);
 
     this.state = {
-      postsBySubreddit: {
-        frontend: {},
-        reactjs: {},
-      },
+      
       selectedSubreddit: 'reactjs',
       shouldRefreshSubreddit: false,
       isFetching: false,
